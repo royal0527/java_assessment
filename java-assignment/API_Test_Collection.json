@@ -1,0 +1,251 @@
+{
+  "info": {
+    "name": "FnCS Warehouse API Test Collection",
+    "description": "API test collection for the Java Quarkus warehouse assignment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Warehouse",
+      "item": [
+        {
+          "name": "List all warehouses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/warehouse",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["warehouse"]
+            }
+          }
+        },
+        {
+          "name": "Get warehouse by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/warehouse/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["warehouse", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create warehouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"businessUnitCode\": \"MWH.999\",\n  \"location\": \"ZWOLLE-002\",\n  \"capacity\": 20,\n  \"stock\": 5\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/warehouse",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["warehouse"]
+            }
+          }
+        },
+        {
+          "name": "Archive warehouse",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/warehouse/4",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["warehouse", "4"]
+            }
+          }
+        },
+        {
+          "name": "Replace warehouse - valid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"businessUnitCode\": \"MWH.001\",\n  \"location\": \"HELMOND-001\",\n  \"capacity\": 40,\n  \"stock\": 10\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/warehouse/MWH.001/replacement",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["warehouse", "MWH.001", "replacement"]
+            }
+          }
+        },
+        {
+          "name": "Replace warehouse - capacity exceeded",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"businessUnitCode\": \"MWH.001\",\n  \"location\": \"AMSTERDAM-001\",\n  \"capacity\": 80,\n  \"stock\": 10\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/warehouse/MWH.001/replacement",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["warehouse", "MWH.001", "replacement"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Store",
+      "item": [
+        {
+          "name": "List all stores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/store",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["store"]
+            }
+          }
+        },
+        {
+          "name": "Create store",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Store\",\n  \"quantityProductsInStock\": 15\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/store",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["store"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "List all products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/product",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["product"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fulfillment",
+      "item": [
+        {
+          "name": "List fulfillments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/fulfillment",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["fulfillment"]
+            }
+          }
+        },
+        {
+          "name": "Create fulfillment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storeId\": 1,\n  \"productId\": 1,\n  \"warehouseId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/fulfillment",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["fulfillment"]
+            }
+          }
+        },
+        {
+          "name": "Create fulfillment - exceeds max warehouses per product/store",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storeId\": 1,\n  \"productId\": 1,\n  \"warehouseId\": 3\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/fulfillment",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["fulfillment"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
